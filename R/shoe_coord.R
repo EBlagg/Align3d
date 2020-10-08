@@ -22,9 +22,9 @@
 
 shoe_coord <- function(shoe, verts = NULL) {
   # check imputs
-  assertthat::not_empty(shoe)
-  assertthat::assert_that(class(shoe) == "mesh3d")
-  assertthat::is.number(verts)
+  #assertthat::not_empty(shoe)
+  #assertthat::assert_that(class(shoe) == "mesh3d")
+  #assertthat::is.number(verts)
 
 
 
@@ -52,13 +52,13 @@ shoe_coord <- function(shoe, verts = NULL) {
       dplyr::filter(!is.na(V1) & !is.na(V2) & !is.na(V3))
   }
   # checking
-  assertthat::not_empty(verts)
+  #assertthat::not_empty(vert)
 
 
   vert_long <- vert %>%
-    select(-triangle_id) %>%
+    dplyr::select(-triangle_id) %>%
     tidyr::gather(key = V, value = idx) %>%
-    select(-V) %>%
+    dplyr::select(-V) %>%
     unique()
   vert_coords <- shoe %>%
     magrittr::extract2("vb") %>%
@@ -69,8 +69,8 @@ shoe_coord <- function(shoe, verts = NULL) {
 
 
   x <- left_join(vert_long, vert_coords) %>%
-    select(-idk) %>%
-    select(-idx)
+    dplyr::select(-idk) %>%
+    dplyr::select(-idx)
 
   hul <- geometry::convhulln(x,
                              output.options = c("p", "Fx"),
@@ -86,11 +86,11 @@ shoe_coord <- function(shoe, verts = NULL) {
 
   edge_coords <- vert_coords %>%
     dplyr::filter(idx %in% hull$idx) %>%
-    select(-idk) %>%
-    select(-idx) %>%
+    dplyr::select(-idk) %>%
+    dplyr::select(-idx) %>%
     as.matrix()
 
-  assertthat::assert_that(class(edge_coords) == "matrix")
+#  assertthat::assert_that(class(edge_coords) == "matrix")
 
   return(edge_coords)
 }
