@@ -9,7 +9,7 @@
 #' @param mesh2 mesh object to be aligned to mesh1
 #'
 #'
-#' @return a list of two triangle mesh objects, the original mesh 1 and the aligned mesh 2
+#' @return a list of two triangle mesh objects, the original mesh 1 and the aligned mesh 2, the distance betwen the two scans
 #'
 #'
 #' @import
@@ -75,11 +75,14 @@ align_shoe<-function(meshobject1,meshobject2, itter=100){
   icpshoe<-icp(shoe_transformed,shoetran1, iterations = itter)[[1]]
 
   promesh <- Rvcg::vcgClostKD(shoetran1,icpshoe,sign=T,threads = 1)
-  closest <- promesh$vb[1:3,]
-  d<- mean(promesh$quality)
+  promesh2 <- Rvcg::vcgClostKD(shoetran1,icpshoe,sign=T,threads = 1)
+  differences<-c(abs(promesh$quality),abs(promesh2$quality))
+  d<- mean(differences)
   mesh1<-shoetran1
   meshalign<-icpshoe
-  return(list(mesh1, meshalign, distances,rot, d))
+
+
+  return(list(mesh1, meshalign, d))
 
 
 }
@@ -87,6 +90,7 @@ align_shoe<-function(meshobject1,meshobject2, itter=100){
 
 
 
+test12<-align_shoe(sony1,sony2,itter = 20)
 
 
 
