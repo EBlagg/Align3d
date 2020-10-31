@@ -9,8 +9,7 @@
 #' @param mesh2 mesh object
 #'
 #'
-#' @return a list with the numeric distance metric and the distribution of distances between points
-#'
+#' @return a list with the numeric distance metric, the difference from scan 1 to scan 2 and the diffences from scan 2 to scan 1
 #'
 #' @import Rvcg
 #'
@@ -19,8 +18,10 @@ distance_shoe<-function(mesh1, mesh2){
   promesh <- Rvcg::vcgClostKD(mesh1,mesh2,sign=T,threads = 1)
   promesh2 <- Rvcg::vcgClostKD(mesh2,mesh2,sign=T,threads = 1)
   differences<-c(sqrt((promesh$quality)^2),sqrt((promesh2$quality)^2))
+  differences_1<-promesh$quality
+  differences_2<-promesh2$quality
   d<-mean(differences)
-  return(list(d,differences))
+  return(list(d,differences_1, differences_2))
 }
 
 a<-distance_shoe(test12[[1]],test12[[2]])
