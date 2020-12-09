@@ -75,7 +75,7 @@ align_shoe<-function(meshobject1,meshobject2, itter=100){
   icpshoe<-icp(shoe_transformed,shoetran1, iterations = itter)[[1]]
 
   promesh <- Rvcg::vcgClostKD(shoetran1,icpshoe,sign=T,threads = 1)
-  promesh2 <- Rvcg::vcgClostKD(shoetran1,icpshoe,sign=T,threads = 1)
+  promesh2 <- Rvcg::vcgClostKD(icpshoe,shoetran1,sign=T,threads = 1)
   differences<-c(abs(promesh$quality),abs(promesh2$quality))
   d<- mean(differences)
   mesh1<-shoetran1
@@ -91,10 +91,14 @@ align_shoe<-function(meshobject1,meshobject2, itter=100){
 
 
 test12<-align_shoe(sony1,sony2,itter = 20)
-
-
-
-
-
+test13<-align_shoe(sony1,sony3,itter = 20)
+test14<-align_shoe(sony1,sony4,itter = 100)
+test15<-align_shoe(sony1,sony5,itter = 20)
+test23<-align_shoe(sony2,sony3,itter = 20)
+test24<-align_shoe(sony2,sony4,itter = 20)
+test25<-align_shoe(sony2,sony5,itter = 20)
+test34<-align_shoe(sony3,sony4,itter = 20)
+test35<-align_shoe(sony3,sony5,itter = 20)
+test45<-align_shoe(sony4,sony5,itter = 20)
 
 

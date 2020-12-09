@@ -9,7 +9,7 @@
 #' @param mesh2 mesh object
 #'
 #'
-#' @return a list with the numeric distance metric, the difference from scan 1 to scan 2 and the diffences from scan 2 to scan 1
+#' @return a list with the numeric distance metric, the difference from scan 1 to scan 2 and the differences from scan 2 to scan 1
 #'
 #' @import Rvcg
 #'
@@ -24,7 +24,7 @@ distance_shoe<-function(mesh1, mesh2){
   return(list(d,differences_1, differences_2))
 }
 
-a<-distance_shoe(test12[[1]],test12[[2]])
+
 
 
 
